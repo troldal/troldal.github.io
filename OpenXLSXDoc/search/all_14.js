@@ -1,0 +1,9 @@
+var searchData=
+[
+  ['width',['Width',['../d7/d44/class_open_x_l_s_x_1_1_x_l_column.html#a3439a5aaced37fb9b72bd52860670d88',1,'OpenXLSX::XLColumn']]],
+  ['workbook',['Workbook',['../d3/d6a/class_open_x_l_s_x_1_1_x_l_document.html#a224a07cd0e9c3bab19436265bdce62d6',1,'OpenXLSX::XLDocument::Workbook()'],['../d3/d6a/class_open_x_l_s_x_1_1_x_l_document.html#ae91dc83f63f84434a17852085ddab5a6',1,'OpenXLSX::XLDocument::Workbook() const'],['../df/d76/namespace_open_x_l_s_x.html#a6adeb13bc1e8d3db8ff6d1b42d951050a0d7932384a9d90a68e63997f771c34a2',1,'OpenXLSX::Workbook()'],['../df/d76/namespace_open_x_l_s_x.html#a56839b4563c2d9be2f3984b16188d333a0d7932384a9d90a68e63997f771c34a2',1,'OpenXLSX::Workbook()']]],
+  ['workbookmacroenabled',['WorkbookMacroEnabled',['../df/d76/namespace_open_x_l_s_x.html#a6adeb13bc1e8d3db8ff6d1b42d951050acfda9b1aafc3fb6bf9c2434141245075',1,'OpenXLSX']]],
+  ['worksheet',['Worksheet',['../d8/da0/class_open_x_l_s_x_1_1_x_l_workbook.html#a0dfe641de6053c754b190fa85ab30133',1,'OpenXLSX::XLWorkbook::Worksheet(const std::string &amp;sheetName)'],['../d8/da0/class_open_x_l_s_x_1_1_x_l_workbook.html#a528b5cef43a31ca33060419f91f416ae',1,'OpenXLSX::XLWorkbook::Worksheet(const std::string &amp;sheetName) const'],['../df/d76/namespace_open_x_l_s_x.html#a2e0d79f4a5b7ca4cf452c1a555a6cd0fa64edb0e8cdc6270be78aff17a42e9ac4',1,'OpenXLSX::WorkSheet()'],['../df/d76/namespace_open_x_l_s_x.html#a6adeb13bc1e8d3db8ff6d1b42d951050a5477b040b1c4b837381e1ef3eba516f3',1,'OpenXLSX::Worksheet()'],['../df/d76/namespace_open_x_l_s_x.html#a56839b4563c2d9be2f3984b16188d333a5477b040b1c4b837381e1ef3eba516f3',1,'OpenXLSX::Worksheet()']]],
+  ['worksheetcount',['WorksheetCount',['../d8/da0/class_open_x_l_s_x_1_1_x_l_workbook.html#af109dbbb38905a0c904cd41514ef16e5',1,'OpenXLSX::XLWorkbook']]],
+  ['worksheetexists',['WorksheetExists',['../d8/da0/class_open_x_l_s_x_1_1_x_l_workbook.html#aaab873ae4e33cb395626513ed549eb89',1,'OpenXLSX::XLWorkbook']]]
+];

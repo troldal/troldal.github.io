@@ -9,7 +9,6 @@
     
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" type="text/css" href="./css/animate.min.css">
 	<link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Oswald&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Droid+Sans&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -69,29 +68,124 @@
 <!-- bloc-0 END -->
 
 <!-- bloc-4 -->
-<div class="bloc bgc-white bg-pexels-photo-110078 d-bloc bloc-bg-texture texture-darken bg-t-edge " id="bloc-4">
-	<div class="container bloc-lg">
+<div class="bloc bgc-white bg-pexels-photo-110078 d-bloc bg-t-edge b-parallax none bloc-bg-texture texture-darken" id="bloc-4">
+	<div class="container bloc-xl">
 		<div class="row">
 			<div class="col-sm-12">
 				<h1 class="mg-md">
 					OpenXLSX
 				</h1>
 				<p>
-					More to come...
-				</p>
+					OpenXLSX is a C++ library for reading, writing, creating and modyfing Microsoft Excel® files, with the .xlsx format. Please note that work is still in progress and the API is not stable.<br>
+				</p><a href="https://github.com/troldal/OpenXLSX" class="btn btn-celestial-blue btn-lg pull-left">GitHub Repository</a><a href="https://github.com/troldal/troldal.github.io/OpenXLSXDoc/index.html" class="btn btn-lg btn-celestial-blue-2" target="_blank">API Documentation</a>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- bloc-4 END -->
 
+<!-- bloc-5 -->
+<div class="bloc bgc-white l-bloc " id="bloc-5">
+	<div class="container bloc-lg">
+		<div class="row">
+			<div class="col-sm-12">
+				<h2 class="mg-md">
+					Motivation
+				</h2>
+				<p class=" text-justify">
+					Many programming languages have the ability to modify Excel files, either natively or in the form of open source libraries. This includes Python, Java and C#. For C++, however, things are more scattered. While there are some libraries, they are generally less mature and have a smaller featureset than for other languages. Here is a summary of the main C++ libraries for Excel files: <br><br>
+				</p>
+				<h3 class="mg-md">
+					libxls
+				</h3>
+				<p class=" text-justify">
+					The libxls library (<a href="https://sourceforge.net/projects/libxls/" target="_blank">https://sourceforge.net/projects/libxls/</a>) is a C library for reading files in the legacy Excel file format, .xls. It cannot be used for writing or modifying Excel files. <br><br>
+				</p>
+				<h3 class="mg-md">
+					xlslib
+				</h3>
+				<p class=" text-justify">
+					The xlslib library (<a href="https://sourceforge.net/projects/xlslib/" target="_blank">https://sourceforge.net/projects/xlslib/</a>) is a C/C++ library for creating files in the legacy Excel file format, .xls. It cannot be used for reading or modifying Excel files. <br><br>
+				</p>
+				<h3 class="mg-md">
+					libxlsxwriter
+				</h3>
+				<p class=" text-justify">
+					The libxlsxwriter library (<a href="https://libxlsxwriter.github.io" target="_blank">https://libxlsxwriter.github.io</a>) is a C library for creating .xlsx files. It cannot be used for reading or modifying Excel files. <br><br>
+				</p>
+				<h3 class="mg-md">
+					LibXL
+				</h3>
+				<p class=" text-justify">
+					The LibXL library (<a href="http://www.libxl.com" target="_blank">http://www.libxl.com</a>) can read, write, create and modify Excel files, in both the .xls and .xlsx formats. It is the most feature complete library available and has interfaces for C, C++, C# and Delphi. It is only available for purchase, however. <br><br>
+				</p>
+				<h3 class="mg-md">
+					QtXlsx
+				</h3>
+				<p class=" text-justify">
+					Of the open source libraries, the QtXlsx library (<a href="https://github.com/dbzhang800/QtXlsxWriter" target="_blank">https://github.com/dbzhang800/QtXlsxWriter</a>) is the most feature complete. It is, however, based on the Qt framework. While I'm a big fan of Qt for application programming purposes, I don't believe it is the best option for lower-level libraries. <br><br>
+				</p>
+				<h3 class="mg-md">
+					XLNT
+				</h3>
+				<p class=" text-justify">
+					The XLNT library (<a href="https://github.com/tfussell/xlnt" target="_blank">https://github.com/tfussell/xlnt</a>) is a relatively new open source project. It is still in development, but has an intuitive API and already has a lot of features implemented.&nbsp;&nbsp; <br> <br>Because there were no open source library that fully fitted my needs, I decided to develop the OpenXLSX library. It should be noted that XLNT was not available when I began developing OpenXLSX, and to be honest, I probably wouldn&rsquo;t have begun if it had been available. It is currently more mature than OpenXLSX, so if you need a stable C++ Excel library now, I suggest that you give XLNT a try. Nevertheless, I have decided to continue developing OpenXLSX, as I believe it to be better than XLNT on a few points.<br>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-5 END -->
+
+<!-- bloc-6 -->
+<div class="bloc bg-pexels-photo-110078 b-parallax bgc-black d-bloc bloc-bg-texture texture-darken" id="bloc-6">
+	<div class="container bloc-lg">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="text-center">
+					<span class="fa fa-heart icon-round icon-md"></span>
+				</div>
+				<h3 class="text-center mg-md">
+					Beautiful
+				</h3>
+				<p class="text-center">
+					A little feature description could go here.A little feature description could go here.
+				</p>
+			</div>
+			<div class="col-sm-4">
+				<div class="text-center">
+					<span class="fa fa-rocket icon-round icon-md"></span>
+				</div>
+				<h3 class="text-center mg-md">
+					Responsive
+				</h3>
+				<p class="text-center">
+					A little feature description could go here. A little feature description could go here.
+				</p>
+			</div>
+			<div class="col-sm-4">
+				<div class="text-center">
+					<span class="fa fa-code icon-round icon-md"></span>
+				</div>
+				<h3 class="text-center mg-md">
+					Clean
+				</h3>
+				<p class="text-center">
+					A little feature description could go here.A little feature description could go here.
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-6 END -->
+
 <!-- ScrollToTop Button -->
 <a class="bloc-button btn btn-d scrollToTop" onclick="scrollToTarget('1')"><span class="fa fa-chevron-up"></span></a>
 <!-- ScrollToTop Button END-->
 
 
-<!-- Footer - bloc-5 -->
-<div class="bloc bgc-white l-bloc none bg-b-edge" id="bloc-5">
+<!-- Footer - bloc-7 -->
+<div class="bloc bgc-white l-bloc none bg-b-edge" id="bloc-7">
 	<div class="container bloc-md">
 		<div class="row">
 			<div class="col-sm-12">
@@ -106,10 +200,10 @@
 		</div>
 	</div>
 </div>
-<!-- Footer - bloc-5 END -->
+<!-- Footer - bloc-7 END -->
 
-<!-- Footer - bloc-6 -->
-<div class="bloc bgc-white l-bloc bg-b-edge" id="bloc-6">
+<!-- Footer - bloc-8 -->
+<div class="bloc bgc-white l-bloc bg-b-edge" id="bloc-8">
 	<div class="container bloc-sm">
 		<div class="row row-no-gutters">
 			<div class="col-sm-4">
@@ -130,7 +224,7 @@
 		</div>
 	</div>
 </div>
-<!-- Footer - bloc-6 END -->
+<!-- Footer - bloc-8 END -->
 
 </div>
 <!-- Main container END -->

@@ -38,6 +38,9 @@ a:hover{text-decoration: none; cursor:pointer;}
 
 /* Sizes */
 
+.bloc-xl{
+	padding:150px 50px;
+}
 .bloc-lg{
 	padding:100px 50px;
 }
@@ -197,6 +200,9 @@ a:hover{text-decoration: none; cursor:pointer;}
 	font-size: 18px;
 }
 #bloc-4 p{
+	font-size: 18px;
+}
+#bloc-5 p{
 	font-size: 18px;
 }
 
@@ -365,8 +371,27 @@ button{
 
 /* = Icons
 -------------------------------------------------------------- */
+.icon-md{
+	font-size:30px!important;
+}
 .icon-lg{
 	font-size:60px!important;
+}
+.icon-round{
+	margin:0 auto;
+	border:2px solid transparent;
+	border-radius: 50%;
+	padding: 32px 30px 26px 30px;
+	min-width:80px;
+}
+.icon-round.icon-md,.icon-square.icon-md,.icon-rounded.icon-md{
+	min-width: 92px;
+}
+.icon-round.icon-lg,.icon-square.icon-lg,.icon-rounded.icon-lg{
+	min-width: 122px;
+}
+.icon-round.icon-xl,.icon-square.icon-xl,.icon-rounded.icon-xl{
+	min-width: 162px;
 }
 
 
@@ -476,6 +501,34 @@ h1,h2,h3,h4,h5,h6,p,label,.btn,a{
 
 .bgc-white{
 	background-color:#ffffff;
+}
+.bgc-black{
+	background-color:#000000;
+}
+
+/* Text colour styles */
+
+.tc-pastel-gray{
+	color:#CCCCCC!important;
+}
+
+/* Button colour styles */
+
+.btn-celestial-blue{
+	background:#4B96DE;
+	color:#FFFFFF!important;
+}
+.btn-celestial-blue:hover{
+	background:#3c78b2!important;
+	color:#FFFFFF!important;
+}
+.btn-celestial-blue-2{
+	background:#4B96DE;
+	color:#FFFFFF!important;
+}
+.btn-celestial-blue-2:hover{
+	background:#3c78b2!important;
+	color:#FFFFFF!important;
 }
 
 /* Bloc image backgrounds */
