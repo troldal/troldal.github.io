@@ -1,0 +1,510 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="One-Dimensional Root-Finding" href="docRoots.html" /><link rel="prev" title="Polynomials" href="docPolynomial.html" />
+
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+        <title>Numerical Derivatives - Numerixx 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Numerixx 0.0.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">Numerixx 0.0.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="docIntro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docError.html">A Word About Error Handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docPolynomial.html">Polynomials</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Numerical Derivatives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docRoots.html">One-Dimensional Root-Finding</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="numerical-derivatives">
+<h1>Numerical Derivatives<a class="headerlink" href="#numerical-derivatives" title="Link to this heading">#</a></h1>
+<p>This sections describes classes and functions for finding derivatives of arbitrary one-dimensional functions. Functions for computing numerical derivatives can be found in <code class="file docutils literal notranslate"><span class="pre">calculus/Derivatives.hpp</span></code>.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>Numerical derivatives are a numerical approximation of the derivative of a function. The derivative of a function represents the rate at which the function changes with respect to its independent variable. It is often useful in science and engineering to know the derivative of a function at a particular point, as it provides information about the function’s behavior in the vicinity of that point.</p>
+<p>There are several methods to compute numerical derivatives, but the most common ones are the forward difference, backward difference, and central difference methods.</p>
+<p>The forward difference method involves computing the slope of a secant line between two points on the function, one slightly to the right of the point of interest, and one at the point of interest. The slope of this line approximates the derivative of the function at the point of interest, and can be computed as:</p>
+<p><span class="math notranslate nohighlight">\(f'(x) ≈ \frac{f(x + h) - f(x)}{h}\)</span></p>
+<p>where h is a small positive number that determines the distance between the two points.</p>
+<p>Similarly, the backward difference method involves computing the slope of a secant line between two points on the function, one slightly to the left of the point of interest, and one at the point of interest. The slope of this line approximates the derivative of the function at the point of interest, and can be computed as:</p>
+<p><span class="math notranslate nohighlight">\(f'(x) ≈ \frac{f(x) - f(x - h)}{h}\)</span></p>
+<p>Finally, the central difference method involves computing the slope of a secant line between two points on the function, one slightly to the right of the point of interest, and one slightly to the left of the point of interest. The slope of this line approximates the derivative of the function at the point of interest, and can be computed as:</p>
+<p><span class="math notranslate nohighlight">\(f'(x) ≈ \frac{f(x + h) - f(x - h)}{2h}\)</span></p>
+<p>where h is a small positive number that determines the distance between the two points.</p>
+<p>These numerical methods are called “approximations” because they introduce some error compared to the exact derivative of the function. However, the error can be made arbitrarily small by decreasing the value of h, but this leads to increased numerical instability and rounding errors in the computation. Guidance for choosing the step size (h) is given by Press et al. <a class="footnote-reference brackets" href="#id6" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<p>Typically, central difference methods yield the best results because they evaluate the function symetrically around the point where the derivative is to be found. However, the forward and backward methods are useful in cases where the function can only be evaluated in one direction. An example of this is the function <span class="math notranslate nohighlight">\(f(x) = \sqrt{x}\)</span>. Evaluation of the derivative at the point <span class="math notranslate nohighlight">\(0.0\)</span> can only be done using  forward difference methods, as central and backward difference methods would require function evaluations at negative values, which would yield results in the complex domain for this particular function.</p>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
+<p>The simplest way to compute the derivative of a function is to use one of the convenience functions in the <code class="code docutils literal notranslate"><span class="pre">nxx::deriv</span></code> namespace, i.e. the <code class="code docutils literal notranslate"><span class="pre">central</span></code>, <code class="code docutils literal notranslate"><span class="pre">forward</span></code>, or <code class="code docutils literal notranslate"><span class="pre">backward</span></code> functions. These functions will compute the 1st derivative of a function, using (unsurprisingly) central difference, forward difference, and backward difference methods. Internally, these functions use Richardson extrapolation to compute the derivatives.</p>
+<p>All of the functions will return an <code class="code docutils literal notranslate"><span class="pre">tl::expected</span></code> (or <code class="code docutils literal notranslate"><span class="pre">std::expected</span></code> when C++23 is in widespread use) which will contain the the result or an <code class="code docutils literal notranslate"><span class="pre">DerivativeError</span></code> object in case of an error. For further details, please see the <a class="reference internal" href="docError.html#error-handling"><span class="std std-ref">A Word About Error Handling</span></a> section.</p>
+<p>The following example shows how to find the derivative of the function <span class="math notranslate nohighlight">\(f(x) = ln(x) + 2x\)</span> at the value <span class="math notranslate nohighlight">\(e\)</span>, using the <code class="code docutils literal notranslate"><span class="pre">central</span></code> function:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;numbers&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;calculus/Derivatives.hpp&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="n">nxx</span><span class="o">::</span><span class="n">deriv</span><span class="o">::</span><span class="n">central</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">central</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">numbers</span><span class="o">::</span><span class="n">e</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In the above code example, the function is provided as a lambda. However, any callable object can be used, as long as it takes a single floating point argument, and returns a floating point value. The <code class="code docutils literal notranslate"><span class="pre">forward</span></code> and <code class="code docutils literal notranslate"><span class="pre">backward</span></code> functions works in an identical manner.</p>
+<p>The API for using the <code class="code docutils literal notranslate"><span class="pre">central</span></code>, <code class="code docutils literal notranslate"><span class="pre">forward</span></code>, or <code class="code docutils literal notranslate"><span class="pre">backward</span></code> functions is given below.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3nxx5deriv7centralEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE">
+<span id="_CPPv3I0EN3nxx5deriv7centralE2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE"></span><span id="_CPPv2I0EN3nxx5deriv7centralE2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FN</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="_derivatives_8hpp_1afa91f61665ba8f3ad5a73afa0202215d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">nxx</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">deriv</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">central</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv7centralEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::central::FN"><span class="n"><span class="pre">FN</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">function</span></span>, <span class="n"><span class="pre">nxx</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">IsFloat</span></span><span class="w"> </span><span class="k"><span class="pre">auto</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">invoke_result_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv7centralEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::central::function"><span class="n"><span class="pre">function</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv7centralEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::central::val"><span class="n"><span class="pre">val</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">stepsize</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">nxx</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">StepSize</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">invoke_result_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv7centralEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::central::function"><span class="n"><span class="pre">function</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv7centralEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::central::val"><span class="n"><span class="pre">val</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3nxx5deriv7centralEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="Link to this definition">#</a><br /></dt>
+<dd><p>A convenience function for computing the derivative using a centered divided difference method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>function</strong> – The function for which to compute the derivative. </p></li>
+<li><p><strong>val</strong> – The value at which to compute the derivative. </p></li>
+<li><p><strong>stepsize</strong> – (Optional) The finite difference used to compute the derivative. If an argument for this parameter is not provided, a default value vill be used. The default value is the cubic root of the machine epsilon for the function return type.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">tl::expected</span></code> (<code class="docutils literal notranslate"><span class="pre">std::expected</span></code>) containing the (approximated) derivative of the function, or (in case of an error) a <code class="docutils literal notranslate"><span class="pre">DerivativeError</span></code> exception object describing the error. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3nxx5deriv7forwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE">
+<span id="_CPPv3I0EN3nxx5deriv7forwardE2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE"></span><span id="_CPPv2I0EN3nxx5deriv7forwardE2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FN</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="_derivatives_8hpp_1aedf73eec5c994132d483f528086bdd21"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">nxx</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">deriv</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">forward</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv7forwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::forward::FN"><span class="n"><span class="pre">FN</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">function</span></span>, <span class="n"><span class="pre">nxx</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">IsFloat</span></span><span class="w"> </span><span class="k"><span class="pre">auto</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">invoke_result_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv7forwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::forward::function"><span class="n"><span class="pre">function</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv7forwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::forward::val"><span class="n"><span class="pre">val</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">stepsize</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">nxx</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">StepSize</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">invoke_result_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv7forwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::forward::function"><span class="n"><span class="pre">function</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv7forwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::forward::val"><span class="n"><span class="pre">val</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3nxx5deriv7forwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="Link to this definition">#</a><br /></dt>
+<dd><p>A convenience function for computing the derivative using a forward divided difference method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>function</strong> – The function for which to compute the derivative. </p></li>
+<li><p><strong>val</strong> – The value at which to compute the derivative. </p></li>
+<li><p><strong>stepsize</strong> – (Optional) The finite difference used to compute the derivative. If an argument for this parameter is not provided, a default value vill be used. The default value is the cubic root of the machine epsilon for the function return type.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">tl::expected</span></code> (<code class="docutils literal notranslate"><span class="pre">std::expected</span></code>) containing the (approximated) derivative of the function, or (in case of an error) a <code class="docutils literal notranslate"><span class="pre">DerivativeError</span></code> exception object describing the error. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3nxx5deriv8backwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE">
+<span id="_CPPv3I0EN3nxx5deriv8backwardE2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE"></span><span id="_CPPv2I0EN3nxx5deriv8backwardE2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FN</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="_derivatives_8hpp_1ac6f2806323bcd47fb11912788edb37ec"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">nxx</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">deriv</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">backward</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv8backwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::backward::FN"><span class="n"><span class="pre">FN</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">function</span></span>, <span class="n"><span class="pre">nxx</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">IsFloat</span></span><span class="w"> </span><span class="k"><span class="pre">auto</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">invoke_result_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv8backwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::backward::function"><span class="n"><span class="pre">function</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv8backwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::backward::val"><span class="n"><span class="pre">val</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">stepsize</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">nxx</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">StepSize</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">invoke_result_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv8backwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::backward::function"><span class="n"><span class="pre">function</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv8backwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="nxx::deriv::backward::val"><span class="n"><span class="pre">val</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3nxx5deriv8backwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE" title="Link to this definition">#</a><br /></dt>
+<dd><p>A convenience function for computing the derivative using a backward divided difference method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>function</strong> – The function for which to compute the derivative. </p></li>
+<li><p><strong>val</strong> – The value at which to compute the derivative. </p></li>
+<li><p><strong>stepsize</strong> – (Optional) The finite difference used to compute the derivative. If an argument for this parameter is not provided, a default value vill be used. The default value is the cubic root of the machine epsilon for the function return type.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">tl::expected</span></code> (<code class="docutils literal notranslate"><span class="pre">std::expected</span></code>) containing the (approximated) derivative of the function, or (in case of an error) a <code class="docutils literal notranslate"><span class="pre">DerivativeError</span></code> exception object describing the error. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="advanced-use">
+<h2>Advanced Use<a class="headerlink" href="#advanced-use" title="Link to this heading">#</a></h2>
+<section id="algorithms">
+<h3>Algorithms<a class="headerlink" href="#algorithms" title="Link to this heading">#</a></h3>
+<p>In case more fine-grained usage is required, the <code class="code docutils literal notranslate"><span class="pre">derivative&lt;&gt;</span></code> template function can be used. The <code class="code docutils literal notranslate"><span class="pre">derivative&lt;&gt;</span></code> function has the same signature as the convenience functions described above. However, in addition it also takes a single template argument with the type of the algorithm used to compute the derivative.</p>
+<p>The following example shows how to use the function:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;numbers&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;calculus/Derivatives.hpp&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="n">nxx</span><span class="o">::</span><span class="n">deriv</span><span class="o">::</span><span class="n">central</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">derivative</span><span class="o">&lt;</span><span class="n">Order1CentralRichardson</span><span class="o">&gt;</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">numbers</span><span class="o">::</span><span class="n">e</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In the example above, the <code class="code docutils literal notranslate"><span class="pre">derivative&lt;&gt;</span></code> function is passed the <code class="code docutils literal notranslate"><span class="pre">Order1CentralRichardson</span></code> type as the algorithm type. This is one of several algorithms that comes bundled with the Numerixx library. The following is a list of algorithms for computing the 1st derivatives:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order1CentralRichardson</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order1Central3Point</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order1Central5Point</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order1ForwardRichardson</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order1Forward2Point</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order1Forward3Point</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order1BackwardRichardson</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order1Backward2Point</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order1Backward3Point</span></code></p></li>
+</ul>
+<p>In addition, the following algorithms can be used for computation of the 2nd derivatives:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order2Central3Point</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order2Central5Point</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order2Forward3Point</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order2Forward4Point</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order2Backward3Point</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Order2Backward4Point</span></code></p></li>
+</ul>
+<p>Descriptions of the algorithms listed above can be found in the references <a class="footnote-reference brackets" href="#id7" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> <a class="footnote-reference brackets" href="#id8" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> <a class="footnote-reference brackets" href="#id9" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> <a class="footnote-reference brackets" href="#id10" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.</p>
+<p>In general, the algorithms with 3-5 function evaluations and the Richardson extrapolation algorithms provide the highest accuracy. One might think that more function evaluations would require more CPU time, but it turns out not to be significant. The following table shows benchmarks of the different algorithms, and it can be seen that the choice of algorithm does not significantly affect the computation time.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">----------------------------------------------------------------------</span>
+<span class="n">Benchmark</span>                            <span class="n">Time</span>             <span class="n">CPU</span>   <span class="n">Iterations</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">BM_Order1CentralRichardson</span>       <span class="mf">0.239</span> <span class="n">ns</span>        <span class="mf">0.239</span> <span class="n">ns</span>   <span class="mi">1000000000</span>
+<span class="n">BM_Order1Central3Point</span>           <span class="mf">0.237</span> <span class="n">ns</span>        <span class="mf">0.237</span> <span class="n">ns</span>   <span class="mi">1000000000</span>
+<span class="n">BM_Order1Central5Point</span>           <span class="mf">0.232</span> <span class="n">ns</span>        <span class="mf">0.232</span> <span class="n">ns</span>   <span class="mi">1000000000</span>
+<span class="n">BM_Order1ForwardRichardson</span>       <span class="mf">0.231</span> <span class="n">ns</span>        <span class="mf">0.231</span> <span class="n">ns</span>   <span class="mi">1000000000</span>
+<span class="n">BM_Order1Forward2Point</span>           <span class="mf">0.232</span> <span class="n">ns</span>        <span class="mf">0.232</span> <span class="n">ns</span>   <span class="mi">1000000000</span>
+<span class="n">BM_Order1Forward3Point</span>           <span class="mf">0.229</span> <span class="n">ns</span>        <span class="mf">0.229</span> <span class="n">ns</span>   <span class="mi">1000000000</span>
+<span class="n">BM_Order1BackwardRichardson</span>      <span class="mf">0.230</span> <span class="n">ns</span>        <span class="mf">0.230</span> <span class="n">ns</span>   <span class="mi">1000000000</span>
+<span class="n">BM_Order1Backward2Point</span>          <span class="mf">0.231</span> <span class="n">ns</span>        <span class="mf">0.231</span> <span class="n">ns</span>   <span class="mi">1000000000</span>
+<span class="n">BM_Order1Backward3Point</span>          <span class="mf">0.230</span> <span class="n">ns</span>        <span class="mf">0.230</span> <span class="n">ns</span>   <span class="mi">1000000000</span>
+</pre></div>
+</div>
+<p>The algorithms for computing 2nd derivatives have similar performance characteristics.</p>
+<p>In addition to the bundled algorithms, it is also possible to provide a custom algorithm, as long as it conforms to the correct interface. Any callable object which takes as arguments a single-variable function, a floating point value and a floating point step size, and that returns a floating point result (essentially the same interface as the <code class="code docutils literal notranslate"><span class="pre">derivative&lt;&gt;</span></code> function) can be used. The following example shows how to supply a custom algorithm in the form of a lambda:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;numbers&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;calculus/Derivatives.hpp&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="n">nxx</span><span class="o">::</span><span class="n">deriv</span><span class="o">::</span><span class="n">central</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">algo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="k">auto</span><span class="w"> </span><span class="n">function</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">stepsize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">val</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">stepsize</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">function</span><span class="p">(</span><span class="n">val</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">stepsize</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stepsize</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">derivative</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">algo</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">numbers</span><span class="o">::</span><span class="n">e</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The API for using the <code class="code docutils literal notranslate"><span class="pre">diff&lt;&gt;</span></code> function is given below.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>doxygenfunction: Unable to resolve function “diff” with arguments (IsFunction auto, ReturnType&lt;decltype(function)&gt;, ReturnType&lt;decltype(function)&gt;) in doxygen xml output for project “Numerixx” from directory: C:/Users/kenne/CLionProjects/Numerixx/cmake-build-debug-clang-cl/docs/docs/doxygen.
+Potential matches:
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">template</span><span class="o">&lt;</span><span class="n">typename</span> <span class="n">ALGO</span><span class="o">&gt;</span> <span class="n">auto</span> <span class="n">diff</span><span class="p">(</span><span class="n">IsFloatInvocable</span> <span class="n">auto</span> <span class="n">function</span><span class="p">,</span> <span class="n">nxx</span><span class="p">::</span><span class="n">IsFloat</span> <span class="n">auto</span> <span class="n">val</span><span class="p">,</span> <span class="n">std</span><span class="p">::</span><span class="n">invoke_result_t</span><span class="o">&lt;</span><span class="n">decltype</span><span class="p">(</span><span class="n">function</span><span class="p">),</span> <span class="n">decltype</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">stepsize</span> <span class="o">=</span> <span class="n">nxx</span><span class="p">::</span><span class="n">StepSize</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">invoke_result_t</span><span class="o">&lt;</span><span class="n">decltype</span><span class="p">(</span><span class="n">function</span><span class="p">),</span> <span class="n">decltype</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">())</span>
+<span class="o">-</span> <span class="n">template</span><span class="o">&lt;</span><span class="n">typename</span> <span class="n">ALGO</span><span class="o">&gt;</span> <span class="n">auto</span> <span class="n">diff</span><span class="p">(</span><span class="n">IsFloatInvocable</span> <span class="n">auto</span> <span class="n">function</span><span class="p">,</span> <span class="n">nxx</span><span class="p">::</span><span class="n">IsFloat</span> <span class="n">auto</span> <span class="n">val</span><span class="p">,</span> <span class="n">std</span><span class="p">::</span><span class="n">invoke_result_t</span><span class="o">&lt;</span><span class="n">decltype</span><span class="p">(</span><span class="n">function</span><span class="p">),</span> <span class="n">decltype</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">stepsize</span> <span class="o">=</span> <span class="n">nxx</span><span class="p">::</span><span class="n">StepSize</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">invoke_result_t</span><span class="o">&lt;</span><span class="n">decltype</span><span class="p">(</span><span class="n">function</span><span class="p">),</span> <span class="n">decltype</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="derivative-func-t-objects">
+<h3>Derivative FUNC_T Objects<a class="headerlink" href="#derivative-func-t-objects" title="Link to this heading">#</a></h3>
+<p>The functions and algorithms described above can of course be wrapped in a function object representing the derivative
+of the function in question. However, Numerixx provides a convenience function for creating function objects like this
+automatically.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">derivativeOf&lt;&gt;</span></code> template function can be used to create a function object representing the derivative of
+any input function, provided it has the correct interface. The function uses the <code class="code docutils literal notranslate"><span class="pre">Order1CentralRichardson</span></code>
+algorithm by default, but other algorithms can be specified manually.</p>
+<p>The following code illustrates how to use it:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;numbers&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;calculus/Derivatives.hpp&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">nxx</span><span class="o">::</span><span class="nn">deriv</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">d1func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">derivativeOf</span><span class="p">(</span><span class="n">func</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">d2func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">derivativeOf</span><span class="o">&lt;</span><span class="n">Order2Central5Point</span><span class="o">&gt;</span><span class="p">(</span><span class="n">func</span><span class="p">);</span>
+
+<span class="kt">double</span><span class="w"> </span><span class="n">d1func_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d1func</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">numbers</span><span class="o">::</span><span class="n">e</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">d2func_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d2func</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">numbers</span><span class="o">::</span><span class="n">e</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For objects of the <code class="code docutils literal notranslate"><span class="pre">Polynomial</span></code> class, a separate <code class="code docutils literal notranslate"><span class="pre">derivativeOf&lt;&gt;</span></code> function is defined in the
+<code class="code docutils literal notranslate"><span class="pre">nxx::poly</span></code> namespace. This function will create a function object that will compute the derivative
+analytically, rather than numerically. See the <a class="reference internal" href="docPolynomial.html#polynomials"><span class="std std-ref">Polynomials</span></a> section for details.</p>
+</div>
+<p>The API for using the <code class="code docutils literal notranslate"><span class="pre">derivativeOf&lt;&gt;</span></code> function is given below.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>doxygenfunction: Unable to resolve function “derivativeOf” with arguments (IsFunction auto, ReturnType&lt;decltype(function)&gt;) in doxygen xml output for project “Numerixx” from directory: C:/Users/kenne/CLionProjects/Numerixx/cmake-build-debug-clang-cl/docs/docs/doxygen.
+Potential matches:
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">auto</span> <span class="n">derivativeOf</span><span class="p">(</span><span class="n">IsPolynomial</span> <span class="n">auto</span> <span class="n">func</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">template</span><span class="o">&lt;</span><span class="n">typename</span> <span class="n">ALGO</span> <span class="o">=</span> <span class="n">Order1CentralRichardson</span><span class="o">&gt;</span> <span class="n">auto</span> <span class="n">derivativeOf</span><span class="p">(</span><span class="n">IsFloatInvocable</span> <span class="n">auto</span> <span class="n">function</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id6" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>William H. Press et al. (2007). Numerical Recipes, 3rd Edition.</p>
+</aside>
+<aside class="footnote brackets" id="id7" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Richard L. Burden et al. (2011). Numerical Analysis, 9th Edition.</p>
+</aside>
+<aside class="footnote brackets" id="id8" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>Steven C. Chapra et al. (2021). Numerical Methods for Engineers, 8th Edition.</p>
+</aside>
+<aside class="footnote brackets" id="id9" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p>Sauer, T. (2012). Numerical Analysis, 2nd Edition.</p>
+</aside>
+<aside class="footnote brackets" id="id10" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
+<p>Ward Cheney et al. (2008). Numerical Mathematics and Computing, 6th Edition.</p>
+</aside>
+</aside>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="docRoots.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">One-Dimensional Root-Finding</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="docPolynomial.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Polynomials</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, KinetiQ.dev
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Numerical Derivatives</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#quick-start">Quick Start</a><ul>
+<li><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv7centralEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE"><code class="docutils literal notranslate"><span class="pre">central()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv7forwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4I0EN3nxx5deriv8backwardEDa2FNN3nxx7IsFloatENSt15invoke_result_tIDT8functionEDT3valEEE"><code class="docutils literal notranslate"><span class="pre">backward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#advanced-use">Advanced Use</a><ul>
+<li><a class="reference internal" href="#algorithms">Algorithms</a></li>
+<li><a class="reference internal" href="#derivative-func-t-objects">Derivative FUNC_T Objects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>
