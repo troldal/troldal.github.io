@@ -214,8 +214,17 @@ API Reference
 
 This section provides a detailed reference for the root-finding functions. The reference includes the function signature, the template parameters, the function arguments, and the return type.
 
+For each function, the reference also includes a list of the available algorithms, along with a brief description of each algorithm and its use cases.
+
+.. note::
+    The algorithm classes are not intended to be used directly, but are provided for reference. When used in the root-finding functions, the algorithm template arguments will be deduced automatically, and should not be provided explicitly.
+
 fsolve
 ------
+
+The :code:`fsolve` functions are used to find a root of a one-dimensional function using a bracketing method. It takes a bracketing method object and an initial bracket around the root to be found. The concrete algorithm to be used is provided as a template argument, and the function to be solved is provided as a function argument. The function returns a proxy object that contains the result of the root-finding process.
+
+Four overloads of the :code:`fsolve` function are provided, with different combinations of arguments, enabling the user to provide custom termination conditions and output formats.
 
 .. doxygenfunction:: nxx::roots::fsolve(FN_T func, STRUCT_T bounds, ARGS... args)
     :project: Numerixx
@@ -228,6 +237,17 @@ fsolve
 
 .. doxygenfunction:: nxx::roots::fsolve(FN_T func, const ARG_T (&bounds)[N])
     :project: Numerixx
+
+Algorithms
+^^^^^^^^^^
+
+The following algorithms are available for use with the :code:`fsolve` functions. Note that the algorithms are not intended to be used directly, but are provided for reference. Also, when used in the :code:`fsolve` function, the algorithm template arguments will be deduced automatically, and should not be provided explicitly.
+
+.. doxygenclass:: nxx::roots::Bisection
+
+.. doxygenclass:: nxx::roots::Ridder
+
+.. doxygenclass:: nxx::roots::RegulaFalsi
 
 fdfsolve
 --------
@@ -244,6 +264,18 @@ fdfsolve
 .. doxygenfunction:: nxx::roots::fdfsolve(FN_T func, GUESS_T guess)
     :project: Numerixx
 
+
+Algorithms
+^^^^^^^^^^
+
+The following algorithms are available for use with the :code:`fdfsolve` functions:
+
+.. doxygenclass:: nxx::roots::Newton
+
+.. doxygenclass:: nxx::roots::Secant
+
+.. doxygenclass:: nxx::roots::Steffensen
+
 search
 ------
 
@@ -254,12 +286,22 @@ search
     :project: Numerixx
 
 Algorithms
-----------
+^^^^^^^^^^
 
-The following algorithms are available for use with the root-finding functions:
+The following algorithms are available for use with the :code:`search` functions:
 
-.. doxygenclass:: nxx::roots::Bisection
-    :members: operator()
+.. doxygenclass:: nxx::roots::BracketSearchUp
+
+.. doxygenclass:: nxx::roots::BracketSearchDown
+
+.. doxygenclass:: nxx::roots::BracketExpandUp
+
+.. doxygenclass:: nxx::roots::BracketExpandDown
+
+.. doxygenclass:: nxx::roots::BracketExpandOut
+
+.. doxygenclass:: nxx::roots::BracketSubdivide
+
 
 
 Design and Implementation Details
